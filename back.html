@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Vocabulary Learning Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="Meanings" style="display: none;">{{Meanings}}</div>
+    <div id="Collocations" style="display: none;">{{Collocations}}</div>
+    <div class="main-container" id="card-container">
+        <div class="title-row" id="Word">{{Word}}</div>
+
+        <div class="data-row">
+            <div class="data-cell">Meaning</div>
+            <div class="data-cell content-cell" id="meanings-container"></div>
+        </div>
+        
+        <!-- Special handling for pronunciation in mobile view -->
+        <div class="data-row" id="pronunciation-row">
+            <div class="data-cell">Pronunciation</div>
+            <div class="data-cell content-cell" id="pronunciation-container">
+                <!-- For desktop and tablet -->
+                <div class="nested-cell" id="desktop-pronunciation">
+                    <div class="nested-cell-item-Heading-1">As Noun</div>
+                    <div class="nested-cell-item-Heading-2">As Verb</div>
+                    <div class="nested-cell-item">{{Pronunciation As Noun}}</div>
+                    <div class="nested-cell-item">{{Pronunciation As Verb}}</div>
+                </div>
+                
+                <!-- For mobile only -->
+                <div class="mobile-pronunciation-grid" id="mobile-pronunciation" style="display: none;">
+                    <div class="pronunciation-item">
+                        <div class="pronunciation-header">As Noun</div>
+                        <div class="pronunciation-content">{{Pronunciation As Noun}}</div>
+                    </div>
+                    <div class="pronunciation-item">
+                        <div class="pronunciation-header verb">As Verb</div>
+                        <div class="pronunciation-content">{{Pronunciation As Verb}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-row">
+            <div class="data-cell">Sample Sentence 1</div>
+            <div class="data-cell content-cell">
+                <div class="mnemonic">{{Sample Sentence 1}}</div>
+            </div>
+        </div>
+
+        <div class="data-row">
+            <div class="data-cell">Sample Sentence 2</div>
+            <div class="data-cell content-cell">
+                <div class="mnemonic">{{Sample Sentence 2}}</div>
+            </div>
+        </div>
+
+        <div class="data-row">
+            <div class="data-cell">Collocations</div>
+            <div class="data-cell content-cell" id="collocations-container"></div>
+        </div>
+        
+        <div class="data-row">
+            <div class="data-cell">Your Made-up Story</div>
+            <div class="data-cell content-cell story-beginning">
+                {{Your Made-up Story}}
+            </div>
+        </div>
+        
+        <div class="data-row">
+            <div class="data-cell">YouGlish Reference</div>
+            <div class="data-cell content-cell">
+                <button class="button">Click Me</button>
+                <span>To hear native pronunciations in context on YouGlish.com</span>
+                 (You Need Valid Internet and A Web Browser)
+            </div>
+        </div>
+
+        <div class="final-row"><a class="footer" href="https://github.com/Azharkoivila/Vini-Improve-Vocabulary-AnkiDroid-Deck-Template">Need Help ?</a></div>
+    </div>
+
+    <script>
+        function processWords() {
+            let meanings = document.getElementById("Meanings").innerText;
+            let meaningArray = meanings.split(",").map(word => word.trim());
+            let meaningsHTML = meaningArray.map(word => `<span class="highlighted-text">${word}</span>`).join("");
+            document.getElementById("meanings-container").innerHTML = meaningsHTML;
+    
+            let collocations = document.getElementById("Collocations").innerText;
+            let collocationArray = collocations.split(",").map(word => word.trim());
+            let collocationsHTML = collocationArray.map(word => `<span class="tag">${word}</span>`).join("");
+            document.getElementById("collocations-container").innerHTML = collocationsHTML;
+        }
+    
+        function detectDevice() {
+            const width = window.innerWidth;
+            const container = document.getElementById('card-container');
+            const desktopPronunciation = document.getElementById('desktop-pronunciation');
+            const mobilePronunciation = document.getElementById('mobile-pronunciation');
+            
+            if (width <= 480) {
+                // Mobile layout
+                container.classList.add('mobile-view');
+                container.classList.remove('tablet-view', 'desktop-view');
+                
+                // Switch pronunciation displays
+                if (desktopPronunciation && mobilePronunciation) {
+                    desktopPronunciation.style.display = 'none';
+                    mobilePronunciation.style.display = 'grid';
+                }
+                
+                // Enhance readability for highlighted text
+                const highlights = document.querySelectorAll('.highlighted-text');
+                highlights.forEach(highlight => {
+                    highlight.style.display = 'block';
+                    highlight.style.marginBottom = '8px';
+                });
+                
+            } else if (width <= 768) {
+                // Tablet layout
+                container.classList.add('tablet-view');
+                container.classList.remove('mobile-view', 'desktop-view');
+                
+                // Switch pronunciation displays
+                if (desktopPronunciation && mobilePronunciation) {
+                    desktopPronunciation.style.display = 'grid';
+                    mobilePronunciation.style.display = 'none';
+                }
+                
+            } else {
+                // Desktop layout
+                container.classList.add('desktop-view');
+                container.classList.remove('mobile-view', 'tablet-view');
+                
+                // Switch pronunciation displays
+                if (desktopPronunciation && mobilePronunciation) {
+                    desktopPronunciation.style.display = 'grid';
+                    mobilePronunciation.style.display = 'none';
+                }
+            }
+        }
+        document.querySelector('.button').addEventListener('click', function() {
+            const word = document.getElementById("Word").innerText;
+            const url = `https://youglish.com/pronounce/${word}/english/us`;
+            window.open(url, '_blank');
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            processWords();
+            detectDevice();
+        });
+        
+        window.addEventListener('resize', detectDevice);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Vocabulary Flashcard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f7fa;
+    }
+    
+    .flashcard {
+      width: 350px;
+      height: 500px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+      background: white;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .flashcard-front {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    }
+    .word {
+      color: #2d3436;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }    
+     .decoration {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      pointer-events: none;
+    }
+    
+    .decoration:before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 30px;
+      height: 30px;
+      border-top: 4px solid #2980b9;
+      border-left: 4px solid #16a085;
+      border-radius: 5px 0 0 0;
+    }
+    
+    .decoration:after {
+      content: "";
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      border-bottom: 4px solid #6c5ce7;
+      border-right: 4px solid #6c5ce7;
+      border-radius: 0 0 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="flashcard">
+    <div class="flashcard-inner">
+      <div class="flashcard-front">
+        <div class="decoration"></div>
+        <div class="word">serendipity</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
